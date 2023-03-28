@@ -1,6 +1,5 @@
 import random
 import time
-# from Character import Character
 from Character import Warrior
 from Character import Wizard
 
@@ -68,12 +67,11 @@ def monster_turn(monster, player):
     monster.attack(player)
 
 
+# =========================== main ===========================
 intro()
 
 print("Choose Player : ")
-
 choose_player = input("1. Warrior\t2. Wizard\t3. Bowman\n")
-
 while True:
     if choose_player == '1':
         print("Warrior을(를) 선택하였습니다.")
@@ -89,9 +87,7 @@ while True:
         print("잘못된 선택입니다. 랜덤한 직업을 선택합니다.")
         choose_player = str(random.randint(1, 3))
 
-
 set_name = input("Player Name : ")
-
 player = choose_class(set_name)
 
 monster = Monster()
