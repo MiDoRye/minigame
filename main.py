@@ -1,9 +1,10 @@
 import random
 import time
 # from Character import Character
-from Monster import Monster
-
 from Character import Warrior
+from Character import Wizard
+
+from Monster import Monster
 
 
 def intro():
@@ -26,7 +27,7 @@ def status(player, monster):
     monster.show_status()
 
 
-def player_turn(player, monster):
+def player_turn_wizard(player, monster):
 
     print(f"{player.name}의 순서")
 
@@ -48,7 +49,7 @@ def player_turn_warrior(player, monster):
 
     print(f"{player.name}의 순서")
 
-    input_ = input("공격 타입을 고르세요\n1. 일반 공격\t2.베리어\t3.강공격\n")
+    input_ = input("공격 타입을 고르세요\n1. 일반 공격\t2.베리어\t3.방패 공격\n")
 
     if input_ != '1' and input_ != '2' and input_ != '3':
         print("잘못된 선택입니다. 랜덤한 공격이 출력됩니다.")
@@ -64,40 +65,43 @@ def player_turn_warrior(player, monster):
 
 def monster_turn(monster, player):
 
-    # print(f"{monster.name}의 순서")
     monster.attack(player)
-
-# def create_char() :
 
 
 intro()
 
-# print("Choose Player : ")
+print("Choose Player : ")
 
-# input_ = input("1. warrior\t2. Wizard\t3. Bowman\n")
-# if input_ == '1':
-#     choose_class = Warrior
+choose_player = input("1. Warrior\t2. Wizard\t3. Bowman\n")
+
+while True:
+    if choose_player == '1':
+        print("Warrior을(를) 선택하였습니다.")
+        choose_class = Warrior
+        player_turn = player_turn_warrior
+        break
+    elif choose_player == '2':
+        print("Wizard을(를) 선택하였습니다.")
+        choose_class = Wizard
+        player_turn = player_turn_wizard
+        break
+    else:
+        print("잘못된 선택입니다. 랜덤한 직업을 선택합니다.")
+        choose_player = str(random.randint(1, 3))
+
 
 set_name = input("Player Name : ")
 
-# choose_class = Character
-choose_class = Warrior
-
-# player = choose_class(set_name, 100, 10)
 player = choose_class(set_name)
 
-monster = Monster('monster', 100, 10)
-
-# player = choose_class
-
+monster = Monster()
 
 while True:
     status(player, monster)
     time.sleep(1)
     print("="*75)
 
-    # player_turn(player, monster)
-    player_turn_warrior(player, monster)
+    player_turn(player, monster)
 
     if monster.alive() == False:
         break
